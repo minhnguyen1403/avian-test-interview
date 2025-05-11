@@ -1,7 +1,7 @@
 const moment = require('moment-timezone');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
-const { ConcertModel, SeatModel } = require('../models');
+const { ConcertModel, SeatTypeModel } = require('../models');
 const _ = require('lodash');
 
 function buildCondition({ query }) {
@@ -23,9 +23,9 @@ function buildCondition({ query }) {
 }
 
 async function handleCreate({ body, userId }) {
-    const { seats, name, description, date, location, artists, image_url  } = body;
+    const { seat_types, name, description, date, location, artists, image_url  } = body;
 
-    const countSeats = seats.length;
+    const totalSeats = _.sumBy(seat_types, 'total_seats');
     
     const dataConcert = {
         _id: new ObjectId(),
@@ -35,13 +35,12 @@ async function handleCreate({ body, userId }) {
         location,
         artists,
         image_url,
-        total_seats: countSeats,
-        available_seats: countSeats,
-        sold_seats: 0,
+        total_seats: totalSeats,
+        available_seats: totalSeats,
         created_by: userId,
     };
 
-    const createdSeats = _.map(seats, (item) => ({
+    const createdSeatTypes = _.map(seat_types, (item) => ({
         _id: ObjectId(),
         // data concert
         concert_id: dataConcert._id,
@@ -51,16 +50,15 @@ async function handleCreate({ body, userId }) {
         // data seat
         type: item.type,
         price: item.price,
-        seat_number: item.seat_number,
-        row: item.row,
-        column: item.column,
-        zone: item.zone,
+        name: item.name,
+        total_seats: item.total_seats,
+        remaining_seats: item.remaining_seats,
         created_by: userId,
     }));
 
     // create concert and seat
-    await ConcertModel.create({...dataConcert, seats: _.map(createdSeats, '_id')}),
-    await SeatModel.create(createdSeats);
+    await ConcertModel.create({...dataConcert, seat_types: _.map(createdSeatTypes, '_id')}),
+    await SeatTypeModel.create(createdSeatTypes);
 
     const newConcert = await ConcertModel.findOne({ _id: dataConcert._id }).populate('seats').lean();
 

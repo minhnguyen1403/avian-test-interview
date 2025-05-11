@@ -1,6 +1,6 @@
 const concertSchema = require('./concert.schema');
-const seatSchema = require('./seat.schema');
+const seatTypeSchema = require('./seat-types.schema');
 module.exports = {
   concertSchema,
-  seatSchema,
+  seatTypeSchema,
 };

@@ -1,7 +1,7 @@
 const ConcertController = require('./concert.controller');
-const SeatController = require('./seat.controller');
+const SeatTypeController = require('./seat-types.controller');
 
 module.exports = {
     ConcertController,
-    SeatController,
+    SeatTypeController,
 }

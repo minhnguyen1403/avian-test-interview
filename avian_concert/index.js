@@ -10,7 +10,7 @@ global.APP_CONFIG = config;
 let app = express();
 const {
   ConcertController,
-  SeatController,
+  SeatTypeController,
 } = require('./controllers');
 const _ = require('lodash');
 
@@ -18,7 +18,7 @@ async function main() {
   const appConfig = await framework.createApp(app, config);
   
   ConcertController.run(appConfig);
-  SeatController.run(appConfig);
+  SeatTypeController.run(appConfig);
 
   /** handle logic */
   appConfig.use(function (req, res, next) {

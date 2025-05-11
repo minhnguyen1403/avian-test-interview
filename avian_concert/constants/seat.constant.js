@@ -1,6 +1,7 @@
 const TYPE = {
     REGULAR: 1,
     VIP: 3,
+    GA: 5,
 }
 
 const STATUS = {

@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { SeatModel, ConcertModel } = require('../models');
+const { SeatTypeModel, ConcertModel } = require('../models');
 const createError = require('http-errors');
 const { SeatConstant } = require('../constants');
 
@@ -22,18 +22,13 @@ function buildCondition({ query }) {
     }
     if(concert_status)
         cond = _.merge(cond, { concert_status: { $in: concert_status.split(',') } })
-    if(status)
-        cond = _.merge(cond, { concert_status: { $in: status.split(',') } })
-
+    
     return cond;
 }
 
-async function handleBookedSeat({ id }) {
-    const seat = await SeatModel.findById(id).lean();
+async function handleBookingTicket({ seatType, userId }) {
 
-    if(!seat) throw createError(422, 'not_exists_seat');
-
-    const { concert_id } = seat;
+    const { concert_id } = seatType;
     // update status for seat && count total for concert
     await Promise.all([
         SeatModel.findByIdAndUpdate(id, { status: SeatConstant.STATUS.BOOKED, modified_at: new Date() }),
@@ -46,5 +41,5 @@ async function handleBookedSeat({ id }) {
 
 module.exports = {
     buildCondition,
-    handleBookedSeat,
+    handleBookingTicket,
 };

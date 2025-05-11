@@ -1,9 +1,7 @@
 const { ConcertModel } = require('./concerts.model');
-const { BookingModel } = require('./booking.model');
-const { SeatModel } = require('./seats.model');
+const { SeatTypeModel } = require('./seat-types.model');
 
 module.exports = {
     ConcertModel,
-    BookingModel,
-    SeatModel,
+    SeatTypeModel,
 };

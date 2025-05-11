@@ -1,7 +1,7 @@
 const ConcertService = require('./concert.service');
-const SeatService = require('./seat.service');
+const SeatTypeService = require('./seat-type.service');
 
 module.exports = {
     ConcertService,
-    SeatService,
+    SeatTypeService,
 };

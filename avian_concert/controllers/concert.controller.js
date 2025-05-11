@@ -56,7 +56,7 @@ class ConcertController extends BaseController{
     async getDetail(req, res, next) {
         try {
             const { id } = req.params;
-            const detailConcert = await ConcertModel.findById(id).populate('seats').lean();
+            const detailConcert = await ConcertModel.findById(id).populate('seat_types').lean();
             return res.json(detailConcert);
         } catch (error) {
             return next(error);

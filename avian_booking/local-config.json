@@ -1,0 +1,65 @@
+{
+    "jwt_secret": "minh",
+    "refresh_secret": "refreshminh",
+    "PASS_SALT_MD5": "minh",
+    "mariadb_config": {
+        "host": "157.245.153.7",
+        "port": "3306",
+        "user": "admin",
+        "password": "pwd",
+        "conectionLimit": 5,
+        "db": "KDB"
+    },
+    "bcrypt_salt_round": 10,
+    "log": {
+        "dirname": "/var/log"
+    },
+    "JAEGER_URL": "http://localhost:14268",
+    "ELASTIC_SEARCH": "https://elastic.minhnguyen.info.vn/",
+    "REDIS": {
+        "HOST": "redis.minhnguyen.info.vn",
+        "PORT": "6379",
+        "attempt": 10
+    },
+    "CONSUL": {
+        "HOST": "localhost",
+        "PORT": 8005
+    },
+    "MONGODB": {
+        "username": "kf_users",
+        "password": "kf_users",
+        "dbName": "kf_users",
+        "uri": [
+            "mongo.minhnguyen.info.vn:27017"
+        ],
+        "authSource": "admin",
+        "authMechanism": "SCRAM-SHA-256",
+        "serverSelectionTimeoutMS": 5000,
+        "connectTimeoutMS": 10000,
+        "isDefault": true
+    },
+    "service_name": "avian_booking",
+    "service_port": 3000,
+    "health": "/v1/users",
+    "baseUrl": "https://api.minhnguyen.info.vn",
+    "MONGOOSE_QUERY_TIME": 1,
+    "MONGOOSE_DEBUG": true,
+    "accessTrusted": {
+        "privateKey": "",
+        "endpoints": [
+            {
+                "path": "\/users\/[0-9a-fA-F]{24}\/invalidatetoken",
+                "method": "post"
+            }
+        ]
+    },
+    "sdk": {
+        "debug": false,
+        "services": [
+            {
+                "name": "avian_concert",
+                "publicKey": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxRpoY9wwslWplvyV8B4bi+f+FSBEvPT3YlBc56d5EJK9i1Mq+Spcq3efMis/JqRvHIjGLErKgciYATKILqmFBhMX5Sri+KNjDk0saeqQTFVEUDKuNrcl18PVsCnvFQNLd49p7eqxH0uYgLdKFOLg/zOFmTUxL/v8WIHLPVsiyztYASNZZ38Yio/URvCQA9PSLeb3tHFwGpzr4YzjnB0GBymN5gJInn4YLpbVlNlqEcsn3SoJOgb8CFMT7SurN/7vFqLSQ5RO7qP7ayHtpKELojuWCBa3C8LIHGmeIAM6xuwdyGfJ0Pjc/4WRs2ZyTNKKytmGT185URR2R6es/eGd5XyZG0D1luPC3Z2H+ntwaJYBwPutWXKjoucL+fNS1jYruwBeMoMPzH1ic6YfLYG+NJ9+kRBSxWqNnVVw2IV/1fAs+T3jV0rptQiFd4Jm8mb9Db8HNFniHxcFnRO+dU0k9zKXd4FOs19wJVqVHaCvamsRamoWB/QwxqQ4z9FFj1Gut6U3Ks1+4ZojSCXjZ8ERlKFo85/8pjvncOxbvX+bUw6aRCBCntNyr4cPXxR0BqSTHkHRzt4apJNX1XpysvWn0HgT5D0fvyhi32JdZCMzo168uSj5L8dL2X/1NwmCqsSEI1nZMdUwVwTZ8KRe4xnOE9GOLlcg7IBuyiwrfyzRd2w=="
+            }
+        ]
+    }
+}
