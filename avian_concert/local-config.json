@@ -1,0 +1,55 @@
+{
+    "jwt_secret": "minh",
+    "refresh_secret": "refreshminh",
+    "PASS_SALT_MD5": "minh",
+    "mariadb_config": {
+        "host": "157.245.153.7",
+        "port": "3306",
+        "user": "admin",
+        "password": "pwd",
+        "conectionLimit": 5,
+        "db": "KDB"
+    },
+    "bcrypt_salt_round": 10,
+    "log": {
+        "dirname": "/var/log"
+    },
+    "JAEGER_URL": "http://localhost:14268",
+    "ELASTIC_SEARCH": "https://elastic.minhnguyen.info.vn/",
+    "REDIS": {
+        "HOST": "redis.minhnguyen.info.vn",
+        "PORT": "6379"
+    },
+    "CONSUL": {
+        "HOST": "localhost",
+        "PORT": 8005
+    },
+    "MONGODB": {
+        "username": "kf_users",
+        "password": "kf_users",
+        "dbName": "kf_users",
+        "uri": [
+            "mongo.minhnguyen.info.vn:27017"
+        ],
+        "authSource": "admin",
+        "authMechanism": "SCRAM-SHA-256",
+        "serverSelectionTimeoutMS": 5000,
+        "connectTimeoutMS": 10000,
+        "isDefault": true
+    },
+    "service_name": "avian_concert_booking",
+    "service_port": 3000,
+    "health": "/v1/users",
+    "baseUrl": "https://api.minhnguyen.info.vn",
+    "MONGOOSE_QUERY_TIME": 1,
+    "MONGOOSE_DEBUG": true,
+    "accessTrusted": {
+        "privateKey": "",
+        "endpoints": [
+            {
+                "path": "\/users\/[0-9a-fA-F]{24}\/invalidatetoken",
+                "method": "post"
+            }
+        ]
+    }
+}

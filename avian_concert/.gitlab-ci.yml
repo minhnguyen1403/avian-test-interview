@@ -1,0 +1,61 @@
+workflow:
+  rules:
+    # - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    # - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == "development"
+      when: always
+
+default:
+  image: docker:24.0.5-dind
+  services:
+    - docker:24.0.5-dind
+  before_script:
+    - docker info  
+variables:
+  DOCKER_TLS_CERTDIR: ""  # Disable TLS for Docker
+  # DOCKER_HOST: "tcp://docker:2375"  # Connect to Docker daemon via TCP
+  # DOCKER_DRIVER: "overlay2"  # Recommended storage driver
+  MY_IMAGE: "${REGISTRY_MINHNGUYEN_ENDPOINT}/${PROJECT_NAME}/${SERVICE_NAME}:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHORT_SHA}"
+
+build:
+  stage: build
+  tags:
+    - dind
+  script:
+    # - echo "info, ${SERVICE_NAME}, ${REGISTRY_MINHNGUYEN_ENDPOINT}/${PROJECT_NAME}/${SERVICE_NAME}, ${REGISTRY_MINHNGUYEN_USERNAME}, ${REGISTRY_MINHNGUYEN_PASSWORD}"
+    # - docker login -u ${REGISTRY_MINHNGUYEN_USERNAME} -p ${REGISTRY_MINHNGUYEN_PASSWORD} ${REGISTRY_MINHNGUYEN_ENDPOINT}
+    # - docker build -t ${MY_IMAGE} .
+    # - docker push ${MY_IMAGE}
+
+deploy:
+  # image: alpine/helm:3.2.1
+  image: dtzar/helm-kubectl
+  stage: deploy
+  tags:
+    - docker-build
+  script:
+    - echo "Deploy code ..."
+    - helm list -n nginx-ingress
+    - kubectl get deployment -A
+    - kubectl scale deployment kf-release-users  --replicas=3 -n nginx-ingress
+    - helm upgrade --install kf-release-users ./helm-chart --set replicaCount=3 -n nginx-ingress --set image.repository=harbor.minhnguyen.info.vn/kfm-devops/kf_stack_kf_users --set image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHORT_SHA}
+    - kubectl -n nginx-ingress rollout status deployment/kf-release-users
+    # - echo "deploy start ..."
+    # - eval $(ssh-agent -s)
+    # - bash -c 'ssh-add <(echo "${SSH_PRIVATE_KEY}")'
+    # - echo "$SSH_SERVER_IP"
+    # - mkdir -p ~/.ssh
+    # - ssh-keyscan -H $SSH_SERVER_IP >> ~/.ssh/known_hosts
+    # - chmod 644 ~/.ssh/known_hosts
+    # - >
+    #   ssh $SSH_USER@$SSH_SERVER_IP
+    #   "docker login -u ${REGISTRY_MINHNGUYEN_USERNAME} -p ${REGISTRY_MINHNGUYEN_PASSWORD} ${REGISTRY_MINHNGUYEN_ENDPOINT};
+    #   cd ${FOLDER_SERVICE};
+    #   echo ${SERVICE_NAME};
+    #   docker service rm ${SERVICE_NAME};
+    #   docker image prune -f;
+    #   docker pull ${MY_IMAGE};
+    #   docker stack deploy -c docker-compose.yml -d kf_stack"
+    # - cd /root/services
+    # - ls
+    # - docker login -u ${REGISTRY_MINHNGUYEN_USERNAME} -p ${REGISTRY_MINHNGUYEN_PASSWORD} ${REGISTRY_MINHNGUYEN_ENDPOINT}
