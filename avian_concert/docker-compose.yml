@@ -10,7 +10,7 @@ services:
     # - "3000:3000"  # Uncomment nếu cần expose port
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.concert_root.rule=Host(`api.minhnguyen.info.vn`) && (PathPrefix(`/v1/seats`) || PathPrefix(`/v1/concerts`))"
+      - "traefik.http.routers.concert_root.rule=Host(`api.minhnguyen.info.vn`) && (PathPrefix(`/v1/seat-types`) || PathPrefix(`/v1/concerts`))"
       - "traefik.http.routers.concert_root.entrypoints=web,websecure"
       - "traefik.http.routers.concert_root.service=avian_service_concerts"
       - "traefik.http.services.avian_service_concerts.loadbalancer.server.port=3000"
