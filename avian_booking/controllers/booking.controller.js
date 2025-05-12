@@ -39,8 +39,8 @@ class BookingController extends BaseController{
     async cancelBooking(req, res, next) {
         try {
             const { user_id, concert_id } = req.body;
-            await BookingValidator.validateCancelBooking({ user_id, concert_id });
-            const booking = await BookingService.cancelBooking({ user_id, concert_id });
+            const oldBooking = await BookingValidator.validateCancelBooking({ user_id, concert_id });
+            const booking = await BookingService.cancelBooking({ user_id, oldBooking });
             return res.json(booking);
         }catch(err) {
             return next(err);

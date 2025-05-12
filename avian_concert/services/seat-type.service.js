@@ -3,6 +3,7 @@ const { SeatTypeModel, ConcertModel } = require('../models');
 const sdk = require('../internal/avian_sdk')
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Types;
+const createError = require('http-errors');
 function buildCondition({ query }) {
     const {
         from_created_at,
@@ -34,7 +35,7 @@ function buildCondition({ query }) {
 async function reserveSeatTypeInRedis({ redisKey, amount = -1 }) {
     // amount = 1 -> cancel booking
     // amount = 1 -> create booking
-    
+
     const luaScript = `
         local key = KEYS[1]
         local amount = tonumber(ARGV[1])
@@ -144,7 +145,7 @@ async function cancelBooking({ body, userId}){
     
     // cancel from service booking
     const booking = await sdk.Booking.cancel({ concert_id, user_id: userId });
-
+    if(!booking) throw createError(422, 'not_exist_booking')
     // done -> update qty on redis and mongo
     const { concert_id: concertId, seat_type_id: seatTypeId } = booking;
     // redis

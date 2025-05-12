@@ -13,8 +13,8 @@ class SeatController extends BaseController{
     static run(app) {
         app.get('/v1/seat-types', this.handler('getList'));
         app.get('/v1/seat-types/:id', this.handler('getDetail'));
-        app.put('/v1/seat-types/booking', validateBody(seatTypeSchema.bookingTicket),this.handler('handleBookingTicket'));
-        app.put('/v1/seat-types/cancel-booking', validateBody(seatTypeSchema.bookingTicket),this.handler('handleCancelBooking'));
+        app.post('/v1/seat-types/booking', validateBody(seatTypeSchema.bookingTicket),this.handler('handleBookingTicket'));
+        app.post('/v1/seat-types/cancel-booking', validateBody(seatTypeSchema.cancelBookingTicket),this.handler('handleCancelBooking'));
 
     }
 

@@ -15,7 +15,19 @@ const bookingTicket = {
     ]
 };
 
+const cancelBookingTicket = {
+    type: 'object',
+    properties: {
+        concert_id: {
+            type: 'string',
+        },
+    },
+    required: [
+        'concert_id',
+    ]
+};
 
 module.exports = {
     bookingTicket,
+    cancelBookingTicket,
 }
