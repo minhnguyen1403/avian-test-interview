@@ -1,0 +1,1 @@
+exports.ConfigSchema = require('./config');

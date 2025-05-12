@@ -1,4 +1,5 @@
 const config = (process.env.NODE_ENV !== 'localhost') ?  require('../../config.json') : require('../../local-config.json') ;
+console.log(process.env.NODE_ENV)
 const Models = require('./models');
 const createError = require('http-errors');
 const express = require('express');
@@ -24,9 +25,9 @@ const Middlewares = require('./middlewares/index');
 const Authenticate = Middlewares.Authenticate;
 const jwtMiddleware = Authenticate.jwtMiddleware;
 const accessTrustedMiddleware = Authenticate.accessTrustedMiddleware;
+const cache = require('./redis');
 
-
-async function createApp(app, config){
+async function createApp(app, config, sdk = null){
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'pug');
@@ -84,15 +85,23 @@ async function createApp(app, config){
    // JWT Authen middleware
   app.use(jwtMiddleware(config));
 
-  if (config.REDIS){
-    console.log('start connecting REDIS ...');
-    global.redisClient = await redisClient(config.REDIS);
-    console.log('connect REDIS successfully');
+  global.REDIS_CLIENT = null;
+  if (config.REDIS) {
+    const redisClient = await cache.createClient(config.REDIS);
+    console.log('connect REDIS successfully')
+    global.redis = redisClient;
   }
   if(config.MONGODB){
     await Models.connectDB(config.MONGODB);
     console.log('connect DB successfully');
   }
+
+   if (sdk) {
+    sdk.setConfig(config);
+    // global._APP_SDK = sdk;
+  }
+  exports.Controllers = require('./controllers');
+
 
   // if(config.CONSUL){
   //   await require('./internal/consul-client').createConnection({ config: config });

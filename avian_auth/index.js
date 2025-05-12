@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const pathSecretKey = path.resolve('.', 'id_rsa');
 config.accessTrusted.privateKey = fs.readFileSync(pathSecretKey).toString();
-console.log(config.accessTrusted.privateKey)
+console.log(process.env.NODE_ENV)
 const express = require('express');
 global.APP_CONFIG = config;
 let app = express();

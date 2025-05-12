@@ -86,7 +86,8 @@ exports.jwtMiddleware = function (config) {
   const endpoints = _.get(config, 'endpoints', []).concat([
     { method: 'get', path: '/favicon.ico' },
     { method: 'get', path: '/health/ping' },
-    { method: 'post', path: '/users/login' }
+    { method: 'post', path: '/users/login' },
+    { method: 'post', path: '/users/register' }
   ]);
 
   const jwtAuthen = new JwtAuthenticate(
