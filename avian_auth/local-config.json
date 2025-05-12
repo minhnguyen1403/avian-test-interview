@@ -26,7 +26,7 @@
     },
     "MONGODB": {
         "username": "avian_users",
-        "password": "avian_users",
+        "password": "123465",
         "dbName": "avian_users",
         "uri": [
             "mongo:27017"
