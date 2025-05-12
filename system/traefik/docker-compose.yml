@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  reverse-proxy:
+    image: traefik:v3.0 # The official Traefik docker image
+    command: --configFile=/traefik.yml # Sử dụng tệp cấu hình
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # Giao diện quản trị Traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Cho phép Traefik nghe sự kiện Docker
+      - ./traefik.yml:/traefik.yml
+    networks:
+      - kfm_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.minhnguyen.info.vn`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.services.reverse-proxy.loadbalancer.server.port=8080"
+      # Nếu bạn cần expose MongoDB thì mở lại các label bên dưới
+      #- "traefik.http.routers.mongo-http.rule=Host(`mongo.minhnguyen.info.vn`)"
+      #- "traefik.http.routers.mongo-http.service=kf_stack_mongo"
+      #- "traefik.http.services.kf_stack_mongo.loadbalancer.server.port=27017"
+      #- "traefik.http.routers.mongo-http.entrypoints=web,websecure"
+      #- "traefik.tcp.routers.mongo.rule=HostSNI(`mongo.minhnguyen.info.vn`)"
+      #- "traefik.tcp.routers.mongo.tls=true"
+      #- "traefik.tcp.routers.mongo.tls.passthrough=true"
+      #- "traefik.tcp.routers.mongo.service=kf_stack_mongo"
+      #- "traefik.tcp.services.kf_stack_mongo.loadbalancer.server.port=27017"
+      #- "traefik.tcp.routers.mongo.entrypoints=mongo"
+
+networks:
+  kfm_network:
+    external: true

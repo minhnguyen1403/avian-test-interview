@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  reverse-proxy:
+    image: traefik:v3.0
+    command: --configFile=/traefik.yml # Sử dụng tệp cấu hình
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Giao diện quản trị Traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Cho phép Traefik lắng nghe các sự kiện Docker
+      - ./traefik.yml:/traefik.yml  # Cấu hình Traefik
+    networks:
+      - kfm_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.minhnguyen.info.vn`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.services.reverse-proxy.loadbalancer.server.port=8080"
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    ports:
+      - "27017:27017"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.mongo.rule=HostSNI(`mongo.minhnguyen.info.vn`)"
+      - "traefik.tcp.routers.mongo.entrypoints=mongo"
+      - "traefik.tcp.routers.mongo.tls=true"
+      - "traefik.tcp.routers.mongo.tls.passthrough=true"
+      - "traefik.tcp.routers.mongo.service=kf_stack_mongo"
+      - "traefik.tcp.services.kf_stack_mongo.loadbalancer.server.port=27017"
+    volumes:
+      - ./data/mongodb01:/data/db
+    networks:
+      - kfm_network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - kfm_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.redis.rule=HostSNI(`redis.minhnguyen.info.vn`)"
+      - "traefik.tcp.routers.redis.tls=true"
+      - "traefik.tcp.routers.redis.tls.passthrough=true"
+      - "traefik.tcp.routers.redis.service=kf_stack_redis"
+      - "traefik.tcp.services.kf_stack_redis.loadbalancer.server.port=6379"
+
+volumes:
+  redis-data:
+    name: redis-data
+
+networks:
+  kfm_network:
+    external: true

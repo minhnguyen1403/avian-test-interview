@@ -1,0 +1,24 @@
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+  mongo:
+    address: ":27017"
+  rabbit:
+    address: ":5672"
+  udp-server:
+    address: ":1234/udp"
+  custom8443:
+    address: ":8443"
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+
+  #swarm:
+  # useBindPortIP: true
+  # network: kfm_network
+api:
+  insecure: true
+  dashboard: true

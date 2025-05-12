@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    ports:
+      - "27017:27017"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.mongo.rule=HostSNI(`mongo.minhnguyen.info.vn`)"
+      - "traefik.tcp.routers.mongo.entrypoints=mongo"
+      - "traefik.tcp.routers.mongo.tls=true"
+      - "traefik.tcp.routers.mongo.tls.passthrough=true"
+      - "traefik.tcp.routers.mongo.service=kf_stack_mongo"
+      - "traefik.tcp.services.kf_stack_mongo.loadbalancer.server.port=27017"
+      - "traefik.http.routers.mongo-http.rule=Host(`mongo.minhnguyen.info.vn`)"
+      - "traefik.http.routers.mongo-http.entrypoints=web,websecure"
+      - "traefik.http.routers.mongo-http.service=kf_stack_mongo"
+      - "traefik.http.services.kf_stack_mongo.loadbalancer.server.port=27017"
+    volumes:
+      - ./data/mongodb01:/data/db
+    networks:
+      - kfm_network
+networks:
+  kfm_network:
+    external: true
