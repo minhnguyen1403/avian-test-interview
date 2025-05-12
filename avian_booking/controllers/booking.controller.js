@@ -41,7 +41,7 @@ class BookingController extends BaseController{
             const { user_id, concert_id } = req.body;
             await BookingValidator.validateCancelBooking({ user_id, concert_id });
             const booking = await BookingService.cancelBooking({ user_id, concert_id });
-            return res.sendItem(booking);
+            return res.json(booking);
         }catch(err) {
             return next(err);
         }
