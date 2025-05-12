@@ -176,3 +176,30 @@ curl --location 'api.minhnguyen.info.vn/v1/seat-types/cancel-booking' \
 --data '{
     "concert_id": "6821e93f457d2998c4a384e4"
 }'
+
+
+# another api
+curl --location 'api.minhnguyen.info.vn/v1/booking' \
+--header 'Content-Type: application/json' \
+--header 'Avian-Access-Trusted: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxRpoY9wwslWplvyV8B4bi+f+FSBEvPT3YlBc56d5EJK9i1Mq+Spcq3efMis/JqRvHIjGLErKgciYATKILqmFBhMX5Sri+KNjDk0saeqQTFVEUDKuNrcl18PVsCnvFQNLd49p7eqxH0uYgLdKFOLg/zOFmTUxL/v8WIHLPVsiyztYASNZZ38Yio/URvCQA9PSLeb3tHFwGpzr4YzjnB0GBymN5gJInn4YLpbVlNlqEcsn3SoJOgb8CFMT7SurN/7vFqLSQ5RO7qP7ayHtpKELojuWCBa3C8LIHGmeIAM6xuwdyGfJ0Pjc/4WRs2ZyTNKKytmGT185URR2R6es/eGd5XyZG0D1luPC3Z2H+ntwaJYBwPutWXKjoucL+fNS1jYruwBeMoMPzH1ic6YfLYG+NJ9+kRBSxWqNnVVw2IV/1fAs+T3jV0rptQiFd4Jm8mb9Db8HNFniHxcFnRO+dU0k9zKXd4FOs19wJVqVHaCvamsRamoWB/QwxqQ4z9FFj1Gut6U3Ks1+4ZojSCXjZ8ERlKFo85/8pjvncOxbvX+bUw6aRCBCntNyr4cPXxR0BqSTHkHRzt4apJNX1XpysvWn0HgT5D0fvyhi32JdZCMzo168uSj5L8dL2X/1NwmCqsSEI1nZMdUwVwTZ8KRe4xnOE9GOLlcg7IBuyiwrfyzRd2w==' \
+--data '{
+    "seat_type_id": "6820a7a61fae79fe5d60f378",
+    "concert_id": "6820a7a61fae79fe5d60f377",
+    "concert_name": "Blackpink World Tour",
+    "price": 250,
+    "seat_name": "VIP Zone",
+    "total_seats": 50,
+    "remaining_seats": 50,
+    "created_at": "2025-05-11T13:35:34.937Z",
+    "modified_at": "2025-05-11T13:35:34.937Z",
+    "__v": 0,
+    "user_id": "681f22d9b7da4a46b995eb17"
+}'
+
+curl --location 'api.minhnguyen.info.vn/v1/booking' \
+--header 'Content-Type: application/json' \
+--header 'Avian-Access-Trusted: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxRpoY9wwslWplvyV8B4bi+f+FSBEvPT3YlBc56d5EJK9i1Mq+Spcq3efMis/JqRvHIjGLErKgciYATKILqmFBhMX5Sri+KNjDk0saeqQTFVEUDKuNrcl18PVsCnvFQNLd49p7eqxH0uYgLdKFOLg/zOFmTUxL/v8WIHLPVsiyztYASNZZ38Yio/URvCQA9PSLeb3tHFwGpzr4YzjnB0GBymN5gJInn4YLpbVlNlqEcsn3SoJOgb8CFMT7SurN/7vFqLSQ5RO7qP7ayHtpKELojuWCBa3C8LIHGmeIAM6xuwdyGfJ0Pjc/4WRs2ZyTNKKytmGT185URR2R6es/eGd5XyZG0D1luPC3Z2H+ntwaJYBwPutWXKjoucL+fNS1jYruwBeMoMPzH1ic6YfLYG+NJ9+kRBSxWqNnVVw2IV/1fAs+T3jV0rptQiFd4Jm8mb9Db8HNFniHxcFnRO+dU0k9zKXd4FOs19wJVqVHaCvamsRamoWB/QwxqQ4z9FFj1Gut6U3Ks1+4ZojSCXjZ8ERlKFo85/8pjvncOxbvX+bUw6aRCBCntNyr4cPXxR0BqSTHkHRzt4apJNX1XpysvWn0HgT5D0fvyhi32JdZCMzo168uSj5L8dL2X/1NwmCqsSEI1nZMdUwVwTZ8KRe4xnOE9GOLlcg7IBuyiwrfyzRd2w==' \
+--data '{
+    "concert_id": "6820b33a9df9e87fa4d13897",
+    "user_id": "681f22d9b7da4a46b995eb17"
+}'
