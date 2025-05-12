@@ -16,7 +16,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dashboard.entrypoints=websecure"
-      - "traefik.http.routers.dashboard.rule=Host(`traefik.minhnguyen.info.vn`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.dashboard.rule=Host(`localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.services.reverse-proxy.loadbalancer.server.port=8080"
 
@@ -29,7 +29,7 @@ services:
       - "27017:27017"
     labels:
       - "traefik.enable=true"
-      - "traefik.tcp.routers.mongo.rule=HostSNI(`mongo.minhnguyen.info.vn`)"
+      - "traefik.tcp.routers.mongo.rule=HostSNI(`mongo.localhost`)"
       - "traefik.tcp.routers.mongo.entrypoints=mongo"
       - "traefik.tcp.routers.mongo.tls=true"
       - "traefik.tcp.routers.mongo.tls.passthrough=true"
@@ -50,7 +50,7 @@ services:
       - avian_network
     labels:
       - "traefik.enable=true"
-      - "traefik.tcp.routers.redis.rule=HostSNI(`redis.minhnguyen.info.vn`)"
+      - "traefik.tcp.routers.redis.rule=HostSNI(`redis.localhost`)"
       - "traefik.tcp.routers.redis.tls=true"
       - "traefik.tcp.routers.redis.tls.passthrough=true"
       - "traefik.tcp.routers.redis.service=kf_stack_redis"
@@ -65,7 +65,7 @@ services:
     # - "3000:3000"  # Uncomment nếu cần expose port
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.concert_root.rule=Host(`api.minhnguyen.info.vn`) && (PathPrefix(`/v1/seat-types`) || PathPrefix(`/v1/concerts`))"
+      - "traefik.http.routers.concert_root.rule=Host(`api.localhost`) && (PathPrefix(`/v1/seat-types`) || PathPrefix(`/v1/concerts`))"
       - "traefik.http.routers.concert_root.entrypoints=web,websecure"
       - "traefik.http.routers.concert_root.service=avian_service_concerts"
       - "traefik.http.services.avian_service_concerts.loadbalancer.server.port=3000"
