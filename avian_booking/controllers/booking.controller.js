@@ -43,7 +43,7 @@ class BookingController extends BaseController{
             const booking = await BookingService.cancelBooking({ user_id, concert_id });
             return res.sendItem(booking);
         }catch(err) {
-            return err;
+            return next(err);
         }
     }
 
