@@ -33,6 +33,7 @@
 - db.createUser({ user: "avian_users", pwd: "123465", roles: [{ role: "readWrite", db: "avian_users" }] }) // create db for service avian_users
 - db.createUser({ user: "avian_concerts", pwd: "123465", roles: [{ role: "readWrite", db: "avian_concerts" }] }) // create db for service avian_concerts
 - db.createUser({ user: "avian_booking", pwd: "123465", roles: [{ role: "readWrite", db: "avian_booking" }] }) // create db for service avian_booking
+- if error from db on service, just docker compose up
 
 # Noted some error:
 For Docker versions lower than 20, you cannot use extra_hosts: - "api.localhost:host-gateway" to enable communication between two containers representing different services. Instead, use the following configuration:
