@@ -26,9 +26,9 @@
         "PORT": 8005
     },
     "MONGODB": {
-        "username": "kf_users",
-        "password": "kf_users",
-        "dbName": "kf_users",
+        "username": "avian_booking",
+        "password": "123465",
+        "dbName": "avian_booking",
         "uri": [
             "mongo.minhnguyen.info.vn:27017"
         ],
