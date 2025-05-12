@@ -5,4 +5,4 @@
 syslog-ng --no-caps &
 
 # Start the Node.js application
-npm run dev
+npm run local

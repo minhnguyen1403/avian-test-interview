@@ -44,7 +44,7 @@ module.exports.config = function (config) {
           filename: 'service-%DATE%.log',
           maxSize: 1,
           maxFiles: '14d',
-          dirname: './var/log',
+          dirname: '/var/log',
         })
       ],
     });

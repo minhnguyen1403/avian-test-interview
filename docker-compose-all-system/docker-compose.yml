@@ -48,6 +48,8 @@ services:
       - redis-data:/data
     networks:
       - avian_network
+    depends_on:
+      - reverse-proxy
     labels:
       - "traefik.enable=true"
       - "traefik.tcp.routers.redis.rule=HostSNI(`redis.localhost`)"
@@ -70,9 +72,46 @@ services:
       - "traefik.http.routers.concert_root.service=avian_service_concerts"
       - "traefik.http.services.avian_service_concerts.loadbalancer.server.port=3000"
     restart: unless-stopped
+    depends_on:
+      - reverse-proxy
     entrypoint: /home/node/app/start.sh
     networks:
       - avian_network
+
+  avian_service_auth:
+    build:
+      context: ../avian_auth
+      dockerfile: Dockerfile
+    image: avian_auth:latest  # Đảm bảo bạn đã chỉ định tên image đúng
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auth_root.rule=Host(`api.localhost`) && (PathPrefix(`/v1/users`) || PathPrefix(`/v1/points`))"
+      - "traefik.http.routers.auth_root.entrypoints=web,websecure"
+      - "traefik.http.routers.auth_root.service=avian_service_auth"
+      - "traefik.http.services.avian_service_auth.loadbalancer.server.port=3000"
+    restart: unless-stopped
+    entrypoint: /home/node/app/start.sh
+    networks:
+      - avian_network
+
+  avian_service_booking:
+    build:
+      context: ../avian_booking
+      dockerfile: Dockerfile
+    image: avian_booking:latest
+    #ports:
+    # - "3000:3000"  # Uncomment nếu cần expose port
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.booking_root.rule=Host(`api.localhost`) && (PathPrefix(`/v1/booking`) || PathPrefix(`/v1/points`))"
+      - "traefik.http.routers.booking_root.entrypoints=web,websecure"
+      - "traefik.http.routers.booking_root.service=avian_service_booking"
+      - "traefik.http.services.avian_service_booking.loadbalancer.server.port=3000"
+    restart: unless-stopped
+    entrypoint: /home/node/app/start.sh
+    networks:
+      - avian_network
+  
 
 volumes:
   redis-data:
