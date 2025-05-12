@@ -75,6 +75,8 @@ services:
     depends_on:
       - reverse-proxy
     entrypoint: /home/node/app/start.sh
+    extra_hosts:
+      - "api.localhost:host.docker.internal"
     networks:
       - avian_network
 
@@ -91,6 +93,8 @@ services:
       - "traefik.http.services.avian_service_auth.loadbalancer.server.port=3000"
     restart: unless-stopped
     entrypoint: /home/node/app/start.sh
+    extra_hosts:
+      - "api.localhost:host.docker.internal"
     networks:
       - avian_network
 
@@ -109,6 +113,9 @@ services:
       - "traefik.http.services.avian_service_booking.loadbalancer.server.port=3000"
     restart: unless-stopped
     entrypoint: /home/node/app/start.sh
+    extra_hosts:
+      - "api.localhost:host.docker.internal"
+
     networks:
       - avian_network
   
