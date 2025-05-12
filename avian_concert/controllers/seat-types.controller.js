@@ -15,7 +15,19 @@ class SeatController extends BaseController{
         app.get('/v1/seat-types/:id', this.handler('getDetail'));
         app.post('/v1/seat-types/booking', validateBody(seatTypeSchema.bookingTicket),this.handler('handleBookingTicket'));
         app.post('/v1/seat-types/cancel-booking', validateBody(seatTypeSchema.cancelBookingTicket),this.handler('handleCancelBooking'));
+        app.post('/v1/seat-types/sync-redis',this.handler('syncRemainingQtyToRedis'));
+    }
 
+    /**
+     * Check system integrity every 5 minutes. If the remaining seat count between Redis and Mongo differs, report it to a group (e.g., Telegram) for verification.
+     *  If there's a network error, sync the data to ensure consistency. For other errors, find a solution.
+     */
+    async syncRemainingQtyToRedis(req, res, next) {
+        try {
+            return res.json({});
+        } catch (error) {
+            return next(error);
+        }
     }
 
     async getList(req, res, next) {

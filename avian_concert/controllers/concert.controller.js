@@ -16,6 +16,16 @@ class ConcertController extends BaseController{
         app.get('/v1/concerts', this.handler('getList'));
         app.get('/v1/concerts/:id', this.handler('getDetail'));
         app.post('/v1/concerts', validateBody(concertSchema.create) ,this.handler('create'));
+        app.post('/v1/concerts/inactive', this.handler('inactiveConcert'));
+    }
+
+    async inactiveConcert(req, res, nex) {
+        try {
+            // // Iterate through all expired concerts - mark the remaining seat count in the concert and seat_types as 0, and simultaneously update the cache for all in Redis.
+            return res.json();
+        } catch (error) {
+            return next(error);
+        }
     }
 
     async getList(req, res, next) {

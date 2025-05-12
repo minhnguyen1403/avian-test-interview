@@ -23,13 +23,25 @@ class BookingController extends BaseController{
         }
     }
 
+    // simulator send Mail - I comment to avoid service errors.
+    async triggerSendMail(booking) {
+        // push message to queue
+        const options = this.reqBuilder()
+            .trusted(APP_CONFIG.ACCESS_TRUSTED_MAIL)
+            .withPath(`/v1/email/send`)
+            .makePOST(booking)
+            .build();
+        this.queueProvider.enqueueToExchange(options, null, 'normal');
+    }
+
     async create(req, res, next) {
         try {
             const body = req.body;
             // lock trans
             await BookingValidator.validateBooking({ body });
-            const newBooking = await BookingService.createBooking({ body })
-
+            const newBooking = await BookingService.createBooking({ body });
+            // send mail when booking successful - I comment to avoid service errors.
+            // this.triggerSendMail(newBooking);
             return res.json(newBooking);
         } catch (error) {
             return next(error);
@@ -41,6 +53,8 @@ class BookingController extends BaseController{
             const { user_id, concert_id } = req.body;
             const oldBooking = await BookingValidator.validateCancelBooking({ user_id, concert_id });
             const booking = await BookingService.cancelBooking({ user_id, oldBooking });
+            // send mail when cancel booking successful - I comment to avoid service errors.
+            // this.triggerSendMail(booking);
             return res.json(booking);
         }catch(err) {
             return next(err);

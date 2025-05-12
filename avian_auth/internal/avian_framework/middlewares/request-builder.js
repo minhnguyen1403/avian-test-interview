@@ -23,19 +23,7 @@ class RequestBuilder {
    */
     constructor(baseUrl) {
         let _baseUrl = baseUrl;
-        if (!_baseUrl) {
-            if (process.env.KFM_BASE_URL) {
-                _baseUrl = process.env.KFM_BASE_URL;
-            } else if (NODE_ENV === 'production') {
-                _baseUrl = 'https://api.kingfood.co';
-            } else if (
-                NODE_ENV === 'development' ||
-                NODE_ENV === 'localhost' ||
-                NODE_ENV === 'test'
-            ) {
-                _baseUrl = 'https://api-dev.kingfoodmart.net';
-            }
-        }
+        _baseUrl = APP_CONFIG.baseUrl;
 
         if (!_baseUrl) throw new Error('error_invalid_base_url');
 

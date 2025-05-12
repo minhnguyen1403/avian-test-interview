@@ -115,7 +115,6 @@ async function handleBookingTicket({ seatType, userId }) {
         } else if (result == -1) {
             throw createError(422, 'seat_is_not_init');
         }
-
         // Usually, this part will be pushed to Rabbit
         const createdBooking = {
             seat_type_id: seatTypeId,

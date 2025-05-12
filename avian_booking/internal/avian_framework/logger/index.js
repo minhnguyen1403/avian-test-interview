@@ -212,7 +212,6 @@ let expressLoggerMiddleware = expressWinston.logger({
     expressFormat: true,
     colorize: false,
     headerBlacklist: [
-        'Kingfood-Access-Trusted',
         'token',
         'keep-alive',
         'cache-control',

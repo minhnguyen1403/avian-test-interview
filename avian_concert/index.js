@@ -1,4 +1,5 @@
 const config = (process.env.NODE_ENV !== 'localhost') ?  require('./config.json') : require('./local-config.json') ;
+console.log({env: process.env.NODE_ENV})
 const framework = require('./internal/avian_framework');
 const createError = require('http-errors');
 const fs = require('fs');
