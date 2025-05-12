@@ -17,7 +17,7 @@
     "JAEGER_URL": "http://localhost:14268",
     "ELASTIC_SEARCH": "https://elastic.minhnguyen.info.vn/",
     "REDIS": {
-        "HOST": "redis.minhnguyen.info.vn",
+        "HOST": "redis",
         "PORT": "6379"
     },
     "CONSUL": {
