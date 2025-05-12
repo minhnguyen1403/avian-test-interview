@@ -40,7 +40,7 @@
     "service_name": "avian_concert_booking",
     "service_port": 3000,
     "health": "/v1/users",
-    "baseUrl": "api.localhost",
+    "baseUrl": "http://api.localhost",
     "MONGOOSE_QUERY_TIME": 1,
     "MONGOOSE_DEBUG": true,
     "accessTrusted": {
