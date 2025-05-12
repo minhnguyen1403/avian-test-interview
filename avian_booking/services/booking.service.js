@@ -27,14 +27,14 @@ async function createBooking({ body, userId }){
 async function cancelBooking({ user_id, concert_id }) {
     // cancel booking
     const booking = await BookingModel.findOneAndUpdate(
-        { user_id: new ObjectId(user_id), concert: new ObjectId(concert_id), status: BookingConstant.STATUS.PENDING}, {
+            { user_id: new ObjectId(user_id), concert_id: new ObjectId(concert_id), status: `${BookingConstant.STATUS.PENDING}`}, {
             $set: {
                 status: BookingConstant.STATUS.CANCEL,
                 modified_at: new Date(),
                 modified_by: user_id,
             }
         }
-    );
+    ).lean();
     return booking;
 }
 

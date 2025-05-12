@@ -15,7 +15,7 @@ const ModelSchema = new Schema({
     seat_type: { type: String },
     seat_name: { type: String },
 
-    status: { type: String, enum: Object.values(BookingConstant.STATUS), default: BookingConstant.STATUS.PENDING },
+    status: { type: Number, enum: Object.values(BookingConstant.STATUS), default: BookingConstant.STATUS.PENDING },
     price: { type: Number, required: true },
 
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'modified_at' } });
