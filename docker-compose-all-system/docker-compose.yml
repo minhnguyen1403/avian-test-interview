@@ -38,7 +38,7 @@ services:
     volumes:
       - ./data/mongodb01:/data/db
     networks:
-      - kfm_network
+      - avian_network
 
   redis:
     image: redis:latest
@@ -47,7 +47,7 @@ services:
     volumes:
       - redis-data:/data
     networks:
-      - kfm_network
+      - avian_network
     labels:
       - "traefik.enable=true"
       - "traefik.tcp.routers.redis.rule=HostSNI(`redis.minhnguyen.info.vn`)"
@@ -56,10 +56,28 @@ services:
       - "traefik.tcp.routers.redis.service=kf_stack_redis"
       - "traefik.tcp.services.kf_stack_redis.loadbalancer.server.port=6379"
 
+  avian_service_concerts:
+    build:
+      context: ./avian_concert
+      dockerfile: Dockerfile
+    image: avian_concert:latest
+    #ports:
+    # - "3000:3000"  # Uncomment nếu cần expose port
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.concert_root.rule=Host(`api.minhnguyen.info.vn`) && (PathPrefix(`/v1/seat-types`) || PathPrefix(`/v1/concerts`))"
+      - "traefik.http.routers.concert_root.entrypoints=web,websecure"
+      - "traefik.http.routers.concert_root.service=avian_service_concerts"
+      - "traefik.http.services.avian_service_concerts.loadbalancer.server.port=3000"
+    restart: unless-stopped
+    entrypoint: /home/node/app/start.sh
+    networks:
+      - avian_network
+
 volumes:
   redis-data:
     name: redis-data
 
 networks:
-  kfm_network:
+  avian_network:
     external: true
