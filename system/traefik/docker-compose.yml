@@ -12,7 +12,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock # Cho phép Traefik nghe sự kiện Docker
       - ./traefik.yml:/traefik.yml
     networks:
-      - kfm_network
+      - avian_network
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dashboard.entrypoints=websecure"
@@ -32,5 +32,5 @@ services:
       #- "traefik.tcp.routers.mongo.entrypoints=mongo"
 
 networks:
-  kfm_network:
+  avian_network:
     external: true

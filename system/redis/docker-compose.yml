@@ -9,7 +9,7 @@ services:
     volumes:
       - redis-data:/data
     networks:
-      - kfm_network
+      - avian_network
     labels:
       - "traefik.enable=true"
       - "traefik.tcp.routers.redis.rule=HostSNI(`redis.minhnguyen.info.vn`)"
@@ -23,5 +23,5 @@ volumes:
     name: redis-data
 
 networks:
-  kfm_network:
+  avian_network:
     external: true

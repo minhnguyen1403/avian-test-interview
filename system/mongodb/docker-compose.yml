@@ -23,7 +23,7 @@ services:
     volumes:
       - ./data/mongodb01:/data/db
     networks:
-      - kfm_network
+      - avian_network
 networks:
-  kfm_network:
+  avian_network:
     external: true
