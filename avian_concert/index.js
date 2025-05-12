@@ -13,9 +13,10 @@ const {
   SeatTypeController,
 } = require('./controllers');
 const _ = require('lodash');
+const sdk = require('./internal/avian_sdk');
 
 async function main() {
-  const appConfig = await framework.createApp(app, config);
+  const appConfig = await framework.createApp(app, config, sdk);
   
   ConcertController.run(appConfig);
   SeatTypeController.run(appConfig);

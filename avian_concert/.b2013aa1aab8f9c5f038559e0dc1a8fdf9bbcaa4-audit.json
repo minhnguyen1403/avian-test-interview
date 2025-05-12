@@ -119,6 +119,46 @@
             "date": 1746973254217,
             "name": "service-2025-05-11.log.14",
             "hash": "70443607c2e158d219ab90d33a5cf3fde03594c5614693ef607630fae4d4dfa1"
+        },
+        {
+            "date": 1747014360370,
+            "name": "service-2025-05-12.log",
+            "hash": "9c59f76a6e41105f01710c14c621cefafb8a375353e7206b9556f80e5880962d"
+        },
+        {
+            "date": 1747014551276,
+            "name": "service-2025-05-12.log.1",
+            "hash": "9abf84a5472438ff5508097dcb6558b126cdf967f07f5a78adcc7292d4680e10"
+        },
+        {
+            "date": 1747014651560,
+            "name": "service-2025-05-12.log.2",
+            "hash": "70f08e9c6aa2cb53d862456314eab834e3cf7aba8ddaa529b27f16a3a78a2fa8"
+        },
+        {
+            "date": 1747024000498,
+            "name": "service-2025-05-12.log.3",
+            "hash": "61f05dc911a1a2f534a384daf5387692a0ebacacd39761aea818f826ed16a2ad"
+        },
+        {
+            "date": 1747028140440,
+            "name": "service-2025-05-12.log.4",
+            "hash": "baeb6e2542ec038fcbf4e3bef12f8bc6db988d42baefbb126ac485a60cd2a48f"
+        },
+        {
+            "date": 1747028204398,
+            "name": "service-2025-05-12.log.5",
+            "hash": "c70901cb196b7771605be58c05c14de2aa0c60362957128f36d658fd5a0c099e"
+        },
+        {
+            "date": 1747028305447,
+            "name": "service-2025-05-12.log.6",
+            "hash": "ddd2842fcf1896ffcd7ad0a86db259793c74f1a951bdb893288f1fcceabb31ca"
+        },
+        {
+            "date": 1747028922230,
+            "name": "service-2025-05-12.log.7",
+            "hash": "eca9bac624d11dd148c7d9c7df635be2e4b6fccf26e7ae38786f25ca7ab8f5ad"
         }
     ],
     "hashType": "sha256"

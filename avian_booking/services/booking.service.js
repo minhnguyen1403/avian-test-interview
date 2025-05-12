@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const { BookingModel} = require('../models');
-const createError = require('http-errors');
-const { SeatConstant } = require('../constants');
-const sdk = require('../internal/avian_sdk');
+const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Types;
+const { BookingConstant } = require('../constants');
 
 async function createBooking({ body, userId }){
 
@@ -24,6 +24,21 @@ async function createBooking({ body, userId }){
 
 }
 
+async function cancelBooking({ user_id, concert_id }) {
+    // cancel booking
+    const booking = await BookingModel.findOneAndUpdate(
+        { user_id: new ObjectId(user_id), concert: new ObjectId(concert_id), status: BookingConstant.STATUS.PENDING}, {
+            $set: {
+                status: BookingConstant.STATUS.CANCEL,
+                modified_at: new Date(),
+                modified_by: user_id,
+            }
+        }
+    );
+    return booking;
+}
+
 module.exports = {
-    createBooking
+    createBooking,
+    cancelBooking,
 };

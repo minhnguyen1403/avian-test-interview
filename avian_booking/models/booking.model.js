@@ -29,8 +29,21 @@ ModelSchema.plugin(mongooseDelete, {
     overrideMethods: true,
 });
 
-ModelSchema.index({ concert_id: 1, user_id: 1 }, { unique: true });
+ModelSchema.pre('save', async function (next) {
+    if (this.status !== BookingConstant.STATUS.CANCEL) {
+        // check unique if booking is not cancel
+        const existingBooking = await this.constructor.findOne({
+            concert_id: this.concert_id,
+            user_id: this.user_id,
+            status: { $ne: BookingConstant.STATUS.CANCEL }
+        });
 
+        if (existingBooking) {
+            return next(new Error('Booking already exists'));
+        }
+    }
+    next();
+});
 const BookingModel = mongoose.model('BookingModel', ModelSchema, 'avions_bookings');
 
 module.exports = {

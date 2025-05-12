@@ -7,12 +7,15 @@ const { SeatTypeValidator} = require('../validators');
 const {
     validateBody,
 } = require('../middlewares/validator/validator')
+const createError = require('http-errors');
 
 class SeatController extends BaseController{
     static run(app) {
         app.get('/v1/seat-types', this.handler('getList'));
         app.get('/v1/seat-types/:id', this.handler('getDetail'));
         app.put('/v1/seat-types/booking', validateBody(seatTypeSchema.bookingTicket),this.handler('handleBookingTicket'));
+        app.put('/v1/seat-types/cancel-booking', validateBody(seatTypeSchema.bookingTicket),this.handler('handleCancelBooking'));
+
     }
 
     async getList(req, res, next) {
@@ -49,9 +52,21 @@ class SeatController extends BaseController{
 
     async handleBookingTicket(req, res, next) {
         try {
+            if(!this.loggedUser) throw createError(422, 'required_user');
             const userId = this.loggedUser.id;
             const existedSeatType = await SeatTypeValidator.validateBookingTicket({body: req.body})
-            await SeatTypeService.handleBookingTicket({seatType: existedSeatType, userId});
+            const newBooking = await SeatTypeService.handleBookingTicket({seatType: existedSeatType, userId});
+            return res.json(newBooking);
+        } catch (error) {
+            return next(error);
+        }
+    }
+
+    async handleCancelBooking(req, res, next) {
+        try {
+            if(!this.loggedUser) throw createError(422, 'required_user');
+            const userId = this.loggedUser.id;
+            await SeatTypeService.cancelBooking({ body: req.body, userId });
             return res.json({});
         } catch (error) {
             return next(error);

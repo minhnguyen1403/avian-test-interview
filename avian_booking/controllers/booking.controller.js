@@ -8,32 +8,10 @@ const { CacheProvider } = require('../internal/avian_framework/redis')
 
 class BookingController extends BaseController{
     static run(app) {
-        app.get('/v1/booking', this.handler('getList'));
         app.get('/v1/booking/:id', this.handler('getDetail'));
         app.post('/v1/booking', this.handler('create'));
+        app.post('/v1/booking/cancel', this.handler('cancelBooking'));
     }
-
-    // async getList(req, res, next) {
-    //     try {
-    //         const query = req.query;
-    //         const condition = SeatService.buildCondition({ query });
-    //         const { sort_by, select, skip = 0, limit = 10 } = query;
-    //         if (!sort_by) this.sort_by = 'created_at';
-    //         const sort = { [this.sort_by]: this.sort_type };
-
-    //         const [data, count] = await Promise.all([
-    //             SeatModel.find(condition).select(select).sort(sort).skip(skip).limit(limit),
-    //             SeatModel.countDocuments(condition),
-    //         ])
-
-    //         return res.json({
-    //             total: count,
-    //             items: data,
-    //         });
-    //     } catch (error) {
-    //         return next(error);
-    //     }
-    // }
 
     async getDetail(req, res, next) {
         try {
@@ -55,6 +33,17 @@ class BookingController extends BaseController{
             return res.json(newBooking);
         } catch (error) {
             return next(error);
+        }
+    }
+
+    async cancelBooking(req, res, next) {
+        try {
+            const { user_id, concert_id } = req.body;
+            await BookingValidator.validateCancelBooking({ user_id, concert_id });
+            const booking = await BookingService.cancelBooking({ user_id, concert_id });
+            return res.sendItem(booking);
+        }catch(err) {
+            return err;
         }
     }
 
