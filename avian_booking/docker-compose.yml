@@ -2,6 +2,9 @@ version: '3.8'
 
 services:
   avian_service_auth:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: avian_booking:latest
     #ports:
     # - "3000:3000"  # Uncomment nếu cần expose port
