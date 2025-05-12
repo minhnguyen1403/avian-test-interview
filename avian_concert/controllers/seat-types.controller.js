@@ -1,4 +1,4 @@
-const BaseController = require('./base.controller');
+const {BaseController} = require('../internal/avian_framework/controllers');
 const { SeatTypeService} = require('../services');
 const { SeatTypeModel } = require('../models');
 const _ = require('lodash')

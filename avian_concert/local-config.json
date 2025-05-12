@@ -25,9 +25,9 @@
         "PORT": 8005
     },
     "MONGODB": {
-        "username": "kf_users",
-        "password": "kf_users",
-        "dbName": "kf_users",
+        "username": "avian_concerts",
+        "password": "123465",
+        "dbName": "avian_concerts",
         "uri": [
             "mongo.minhnguyen.info.vn:27017"
         ],

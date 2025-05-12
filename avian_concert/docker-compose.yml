@@ -17,8 +17,8 @@ services:
     restart: unless-stopped
     entrypoint: /home/node/app/start.sh
     networks:
-      - kfm_network
+      - avian_network
 
 networks:
-  kfm_network:
+  avian_network:
     external: true

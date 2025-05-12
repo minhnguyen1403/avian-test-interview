@@ -4,7 +4,7 @@ const {
 const {
     concertSchema,
 } = require('../schemas');
-const BaseController = require('./base.controller');
+const {BaseController} = require('../internal/avian_framework/controllers');
 const { ConcertService} = require('../services');
 const { ConcertValidator } = require('../validators');
 const { ConcertModel } = require('../models');
