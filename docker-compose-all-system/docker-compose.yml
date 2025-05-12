@@ -76,7 +76,8 @@ services:
       - reverse-proxy
     entrypoint: /home/node/app/start.sh
     extra_hosts:
-      - "api.localhost:host.docker.internal"
+      - "api.localhost:host-gateway"
+
     networks:
       - avian_network
 
@@ -94,7 +95,7 @@ services:
     restart: unless-stopped
     entrypoint: /home/node/app/start.sh
     extra_hosts:
-      - "api.localhost:host.docker.internal"
+      - "api.localhost:host-gateway"
     networks:
       - avian_network
 
@@ -114,7 +115,7 @@ services:
     restart: unless-stopped
     entrypoint: /home/node/app/start.sh
     extra_hosts:
-      - "api.localhost:host.docker.internal"
+      - "api.localhost:host-gateway"
 
     networks:
       - avian_network
