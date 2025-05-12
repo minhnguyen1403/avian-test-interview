@@ -12,7 +12,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock  # Cho phép Traefik lắng nghe các sự kiện Docker
       - ./traefik.yml:/traefik.yml  # Cấu hình Traefik
     networks:
-      - kfm_network
+      - avian_network
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dashboard.entrypoints=websecure"
