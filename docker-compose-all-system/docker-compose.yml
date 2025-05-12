@@ -58,7 +58,7 @@ services:
 
   avian_service_concerts:
     build:
-      context: ./avian_concert
+      context: ../avian_concert
       dockerfile: Dockerfile
     image: avian_concert:latest
     #ports:
