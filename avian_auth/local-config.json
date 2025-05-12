@@ -29,7 +29,7 @@
         "password": "avian_users",
         "dbName": "avian_users",
         "uri": [
-            "mongo.minhnguyen.info.vn:27017"
+            "mongo:27017"
         ],
         "authSource": "admin",
         "authMechanism": "SCRAM-SHA-256",
@@ -40,7 +40,7 @@
     "service_name": "avian_users",
     "service_port": 3000,
     "health": "/v1/users",
-    "baseUrl": "https://api.minhnguyen.info.vn",
+    "baseUrl": "api.localhost",
     "MONGOOSE_QUERY_TIME": 1,
     "MONGOOSE_DEBUG": true,
     "accessTrusted": {
