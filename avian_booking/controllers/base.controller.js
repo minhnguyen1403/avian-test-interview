@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const tracer = require('../internal/avian_framework/jaeger-handle/tracer');
 const RequestBuilder = require('../middlewares/request-builder').RequestBuilder;
 const ACCESS_TRUSTED_HEADER = 'Avian-Access-Trusted';

@@ -3,8 +3,7 @@ const { BookingService } = require('../services');
 const { BookingModel } = require('../models');
 const { BookingValidator} = require('../validators');
 const _ = require('lodash')
-const sdk = require('../internal/avian_sdk/');
-const { CacheProvider } = require('../internal/avian_framework/redis')
+
 
 class BookingController extends BaseController{
     static run(app) {
