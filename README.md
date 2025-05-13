@@ -34,6 +34,7 @@
 - db.createUser({ user: "avian_concerts", pwd: "123465", roles: [{ role: "readWrite", db: "avian_concerts" }] }) // create db for service avian_concerts
 - db.createUser({ user: "avian_booking", pwd: "123465", roles: [{ role: "readWrite", db: "avian_booking" }] }) // create db for service avian_booking
 - if error from db on service, just docker compose up
+- you can cd to source service: npm install - npm run dev
 
 # Noted some error:
 For Docker versions lower than 20, you cannot use extra_hosts: - "api.localhost:host-gateway" to enable communication between two containers representing different services. Instead, use the following configuration:
@@ -42,6 +43,9 @@ extra_hosts:
 Additionally, export the DOCKER_HOST_GATEWAY by running:
 export DOCKER_HOST_GATEWAY=$(ip route | awk '/default/ {print $3}')
   - For macos: api.localhost:host.docker.internal
+
+- Error: EACCES: permission denied, open '/var/log/service-2025-05-13.log'
+Emitted 'error' event at: => This error will occur on macOS if you use ./var (relative path) as the log directory.
 
 # Functional Requirements:
 1. Users can register and log in.
