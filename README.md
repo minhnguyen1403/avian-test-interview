@@ -41,6 +41,7 @@ extra_hosts:
   - "api.localhost:${DOCKER_HOST_GATEWAY}"
 Additionally, export the DOCKER_HOST_GATEWAY by running:
 export DOCKER_HOST_GATEWAY=$(ip route | awk '/default/ {print $3}')
+  - For macos: api.localhost:host.docker.internal
 
 # Functional Requirements:
 1. Users can register and log in.
