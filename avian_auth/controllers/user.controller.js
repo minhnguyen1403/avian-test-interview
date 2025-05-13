@@ -4,7 +4,8 @@ const {
 const {
     login, register,
 } = require('../schemas/user.schema');
-const BaseController = require('./base.controller');
+const {BaseController} = require('../internal/avian_framework/controllers');
+
 const { UserService} = require('../services');
 const { UserValidator } = require('../validators');
 const { UserModel } = require('../models');
