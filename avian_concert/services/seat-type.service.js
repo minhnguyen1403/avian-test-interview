@@ -34,7 +34,7 @@ function buildCondition({ query }) {
 
 async function reserveSeatTypeInRedis({ redisKey, amount = -1 }) {
     // amount = 1 -> cancel booking
-    // amount = 1 -> create booking
+    // amount = -1 -> create booking
 
     const luaScript = `
         local key = KEYS[1]
